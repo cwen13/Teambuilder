@@ -1,4 +1,4 @@
-const Intern = require("../lib/Intern.js");
+const Intern = require("../lib/Intern");
 
 describe("Intern", () => {
   describe("getSchool", () => {
@@ -16,4 +16,4 @@ describe("Intern", () => {
       expect(role).toEqual("Intern");
     });
   });
-}
+});

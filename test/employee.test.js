@@ -1,4 +1,4 @@
-const Employee = require("../lib/Employee.js");
+const Employee = require("../lib/Employee");
 
 describe("Employee", () => {
   describe("getName", () => {
@@ -13,7 +13,7 @@ describe("Employee", () => {
     it("should show the email entered into the employee", () => {
       const employee = new Employee("Lorance", 123, "lorance@getmail.org");
       const email = employee.getEmail();
-      expect(email).toEqueal("lorance@getmail.org");
+      expect(email).toEqual("lorance@getmail.org");
     });
   });
 
@@ -24,6 +24,6 @@ describe("Employee", () => {
       expect(role).toEqual("Employee");
     });
   });
-}
+});
 
   
