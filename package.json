@@ -1,6 +1,15 @@
 {
-  "dependencies": {
+  "name": "Teambuilder",
+  "version": "0.1.0",
+  "description": "TEam bulding excersise",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "cwen13",
+  "license": "MIT",
+  "devDependencies": {
     "inquirer": "^8.2.4",
-    "jest": "^29.3.1"
+    "jest": "^24.9.0"
   }
 }

@@ -1,4 +1,4 @@
-const Engineer = require("../lib/Engineer.js");
+const Engineer = require("../lib/Engineer");
 
 describe("Engineer", () => {
   describe("getGithub", () => {
@@ -16,6 +16,6 @@ describe("Engineer", () => {
       expect(role).toEqual("Engineer");
     });
   });
-}
+});
 
-  
+ 

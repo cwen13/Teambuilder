@@ -1,4 +1,4 @@
-const Manager = require("../lib/Manager.js");
+const Manager = require("../lib/Manager");
 
 describe("Manager", () => {
   describe("getRole", () => {
@@ -8,4 +8,5 @@ describe("Manager", () => {
       expect(role).toEqual("Manager");
     });
   });
-}
+});
+
