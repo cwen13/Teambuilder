@@ -3,54 +3,46 @@ const inquirer = require("inquirer");
 const employeeQuestions = [
   {
     type: "input",
-    message:"What is the title of your project?",
-    name: "title",
+    message:"What is your name?",
+    name: "name",
   },
   {
     type: "input",
-    message: "What is a breif description of your project?",
-    name: "description",
-  },
-  {
-    type:"input",
-    message:"How do you install your project?",
-    name:"install",
-  },
-  {
-    type:"input",
-    message:"How does one use your project?",
-    name:"usage",
-  },
-  {
-    type:"input",
-    message:"How can people contribute?",
-    name:"contribute",
-  },
-  {
-    type:"input",
-    message:"What are the tests for this project?",
-    name:"testing",
-  },
-  {
-    type:"list",
-    message:"What license is this covered by?",
-    choices: ["None", "Apache","MIT","BSD 2", "BSD 3","Boost","CC","Eclipse Public", "GNU Affero", "GNU General", "GNU Lesser","Monzilla","The Unlicense"],
-    name:"license",
-  },
-  {
-    type:"input",
-    message:"What is you github username?",
-    name:"github",
+    message: "What is your id?",
+    name: "id",
   },
   {
     type:"input",
     message:"What is your email?",
     name:"email",
+  }
+];
+
+const managerQuestion = [
+  {
+    type:"input",
+    message:"What is your office number?",
+    name:"officeNum",
+  }
+];
+
+const engineerQuestion = [
+  {
+    type:"input",
+    message:"What s your github?",
+    name:"contribute",
+  }
+];
+
+const internQuestion = [
+  {
+    type:"input",
+    message:"What school are you from?",
+    name:"school",
   },
 ];
 
-const managaerQuestions = [];
-const engineerQuestions = [];
-const ineternQuestions = [];
 
+const bootstrap = `<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">`;
 
+const fawe = `<link rel="stylesheet" href="https://kit.fontawesome.com/a284b5a489.css" crossorigin="anonymous">`;
