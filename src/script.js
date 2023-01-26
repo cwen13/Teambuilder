@@ -11,14 +11,14 @@ const { employeeQuestions,
 let mainQuestion = [
   {
     type: "confirm",
-    message: "Do you want to ad another memeber to the team?",
+    message: "Do you want to add another memeber to the team?",
     name: "addMember"
   },
   {
-    type:"list"
+    type:"list",
     message: "What role will they fill?",
     choices: ["Intern","Engineer","Manager"],
-    name: "role";
+    name: "role"
   }
 ];
 
@@ -38,11 +38,9 @@ let questions = [];
 function gatherTheTeam() {
   let building = true;
   while (building){
-    inquirer.promt(mainQuestion)
+  inquirer.prompt(mainQuestion)
       .then((response) => {
-	if (!response.addMember) {
-	  break;
-	} else {
+	if (response.addMember) {
 	  switch (response.role){
 	  case "Intern":
 	    questions = employeeQuestions.concat(internQuestion);
@@ -54,6 +52,8 @@ function gatherTheTeam() {
 	    questions = employeeQuestions.concat(managerQuestion);	    
 	    break;
 	  }
+	} else {
+	  building = false;
 	}
 	inquirer.prompt(questions)
 	  .then((personelInfo) => {
@@ -84,8 +84,8 @@ function gatherTheTeam() {
 
   html += managers.forEach(getCard)
     + engineers.forEach(getCard)
-    + interns.forEach(getCard);
-  html += footer;
+    + interns.forEach(getCard)
+    + footer;
 
   return html;
 }
@@ -96,4 +96,6 @@ function writeHTML(HTML) {
   );
   return 0;
 }
-		
+
+  
+writeHTML(gatherTheTeam());
