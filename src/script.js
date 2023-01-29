@@ -4,121 +4,28 @@ const engineer = require("../lib/engineer");
 const intern = require("../lib/intern");
 const manager = require("../lib/manager");
 
-//const { employeeQuestions,
-//	managerQuestion,
-//	engineerQuestion,
-//	internQuestion } = require("../lib/questions");
-//===================================================
-
-const employeeQuestions = [
-  {
-    type: "input",
-    message:"What is your name?",
-    name: "name",
-  },
-  {
-    type: "input",
-    message: "What is your id?",
-    name: "id",
-  },
-  {
-    type:"input",
-    message:"What is your email?",
-    name:"email",
-  }
-];
-
-const managerQuestion = [
-  {
-    type:"input",
-    message:"What is your office number?",
-    name:"officeNum",
-  }
-];
-
-const engineerQuestion = [
-  {
-    type:"input",
-    message:"What s your github?",
-    name:"contribute",
-  }
-];
-
-const internQuestion = [
-  {
-    type:"input",
-    message:"What school are you from?",
-    name:"school",
-  },
-];
-
-//===================================================
+const { employeeQuestions,
+	managerQuestion,
+	engineerQuestion,
+	internQuestion,
+	addQuestion,
+	roleQuestion} = require("../lib/questions");
 
 
-let addQuestion = [
-  {
-    type: "confirm",
-    message: "Do you want to add another memeber to the team?",
-    name: "addMember"
-  }
-];
+const { bootstrap,
+	fontAwe,
+	header,
+	bodyTop,
+	footer } = require("../lib/htmls");
 
-let roleQuestion = [
-  {
-    type:"list",
-    message: "What role will they fill?",
-    choices: ["Intern","Engineer","Manager"],
-    name: "role"
-  }
-];
-
-// const { bootstrap,
-// 	fontAwe,
-// 	header,
-// 	bodyTop,
-// 	footer } = require("../lib/html");
-//==================================================
-const bootstrap = `<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">`;
-
-const fontAwe = `<link rel="stylesheet" href="https://kit.fontawesome.com/a284b5a489.css" crossorigin="anonymous">`;
-
-const header = `<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-  <meta name="Team Builder" content="A CLI that creates a team for you witha few questions"/>
-  ${bootstrap}
-  ${fontAwe}
-  <title>The Team's Team</title>
-</head>`;
-
-const bodyTop = `<body class="min-vh-100 d-flex align-items-center bg-dark">
-    <section class="w-100 d-flex flex-row flex-wrap justify-content-around">`;
-
-
-const footer = `    </section>
-  </div>
-</body>
-  <footer>
-    Made by Teambuild
-    Developed by Cody Wenrich
-    Powered by <i class="fa-brands fa-github"></i><a href="https://github.com/cwen13> Github</a>
-  </footer>
-</html>`;
-
-//==================================================
-
-let html = header + bodyTop;
+let html = header +  bodyTop;
 
 // Variables 
 let interns = [];
 let engineers = [];
 let managers = [];
-let questions = [];
-let roles = [];
+//let questions = [];
+//let roles = [];
 
 function addAnotherMember() {
   console.log("\nThere");
@@ -166,7 +73,7 @@ function addTheMember(role, personelInfo) {
     case "Manager":
       managers.push(Intern(personelInfo.name,
 			   personelInfo.id,
-				   personelInfo.email,
+			   personelInfo.email,
 			   personelInfo.officeNumber));
       
       break;
@@ -220,27 +127,30 @@ async function gatherTheTeam() {
 	  });
     }
   }
+  
 
-
-  html += managers.map((manager) => manager.getCard())
-    + engineers.map((engineer) => engineer.getCard())
-    + interns.map((intern) => intern.getCard())
+  html += managers.map((manager) => manager.getCard()).join("")
+    + engineers.map((engineer) => engineer.getCard()).join("")
+    + interns.map((intern) => intern.getCard()).join("")
     + footer;
   
-  console.log(html);
     return html;
 }
 
+//gatherTheTeam();
 
-gatherTheTeam();
+function writeHTML(HTML) {
+  fs.writeFile("../dist/index.html", HTML, (err) =>
+    err ? console.log(err) : console.log("HTML file written!")
+  );
+  return 0;
+}
 
-//function writeHTML(HTML) {
-//  fs.writeFile("../dist/index.html", HTML, (err) =>
-//    err ? console.log(err) : conseol.log("HTML file written!")
-//  );
-//  return 0;
-//}
-//
-//  
-//writeHTML(gatherTheTeam());
-//
+async function main () {
+
+  writeHTML(await gatherTheTeam());
+  return 0;
+
+}
+main();
+
