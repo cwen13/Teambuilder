@@ -17,7 +17,7 @@ class Intern extends Employee {
     return `<section class="card bg-warning mb-3" style="width: 18rem;">
               <section class="card-header bg-danger text-white">
                 <div class="card-title">
-                    ${name}
+                    ${this.name}
                 </div>
                 <div class="card-subtitle">
                   <i class="fa-brands fa-github"></i>${this.getRole()}

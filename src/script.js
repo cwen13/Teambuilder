@@ -4,11 +4,58 @@ const engineer = require("../lib/engineer");
 const intern = require("../lib/intern");
 const manager = require("../lib/manager");
 
-const { employeeQuestions,
-	managerQuestion,
-	engineerQuestion,
-	internQuestion } = require("../lib/questions");
-let mainQuestion = [
+//const { employeeQuestions,
+//	managerQuestion,
+//	engineerQuestion,
+//	internQuestion } = require("../lib/questions");
+//===================================================
+
+const employeeQuestions = [
+  {
+    type: "input",
+    message:"What is your name?",
+    name: "name",
+  },
+  {
+    type: "input",
+    message: "What is your id?",
+    name: "id",
+  },
+  {
+    type:"input",
+    message:"What is your email?",
+    name:"email",
+  }
+];
+
+const managerQuestion = [
+  {
+    type:"input",
+    message:"What is your office number?",
+    name:"officeNum",
+  }
+];
+
+const engineerQuestion = [
+  {
+    type:"input",
+    message:"What s your github?",
+    name:"contribute",
+  }
+];
+
+const internQuestion = [
+  {
+    type:"input",
+    message:"What school are you from?",
+    name:"school",
+  },
+];
+
+//===================================================
+
+
+let mainQuestions = [
   {
     type: "confirm",
     message: "Do you want to add another memeber to the team?",
@@ -37,26 +84,33 @@ let questions = [];
 let roles = [];
 
 function addAnotherMember() {
-  let response = inquirer.prompt(mainQuestion)
-      .then((response) => {
-	if(response.addMember) {
-	  switch (response.role){
-	  case "Intern":
-	    questions = employeeQuestions.concat(internQuestion);
-	    break;
-	  case "Engineer":
-	    questions = employeeQuestions.concat(engineerQuestion);	    
-	    break;
-	  case "Manager":
-	    questions = employeeQuestions.concat(managerQuestion);	    
-	    break;
-	  }
-	} else {
-	  questions = null;
+  console.log("\nThere");
+  inquirer.prompt(mainQuestion)
+    .then((response) => {
+      if(response.addMember) {
+	switch (response.role){
+	case "Intern":
+	  questions = employeeQuestions.concat(internQuestion);
+	  break;
+	case "Engineer":
+	  questions = employeeQuestions.concat(engineerQuestion);	    
+	  break;
+	case "Manager":
+	  questions = employeeQuestions.concat(managerQuestion);	    
+	  break;
 	}
-	return questions;
-      });
+      } else {
+	questions = null;
+      }
+      return response;
+    })
+    .catch((err) => {
+  console.error(err.stack)
+    });
 }
+
+//  return response;
+//}
 
 function addTheMember(role, personelInfo) {
     switch(role) {
@@ -83,66 +137,74 @@ function addTheMember(role, personelInfo) {
   return 0;
 }
 
-function gatherTheTeam() {
-  let role = "";
-  inquirer.prompt(mainQuestion)
-    .then((response) => {
-      role = response.role;
-      if(response.addMember){
-	switch (role) {
-	case "Intern":
-	  questions = employeeQuestions.concat(internQuestion);
-	  break;
-	case "Engineer":
-	  questions = employeeQuestions.concat(engineerQuestion);	    
-	  break;
-	case "Manager":
-	  questions = employeeQuestions.concat(managerQuestion);	    
-	  break;
-	}
-      }
-      inquirer.prompt(questions)
-	.then((personelInfo) => {
+async function gatherTheTeam() {
+  let {addMember, role} = await inquirer.prompt(mainQuestions);
+  console.log(role);
+  console.log(typeof employeeQuestions);
+  if(addMember) {
+    switch (role){
+    case "Intern":
+      questions = employeeQuestions.concat(internQuestion);
+      break;      
+    case "Engineer":
+      questions = employeeQuestions.concat(engineerQuestion);	    
+      break;
+    case "Manager":
+      questions = employeeQuestions.concat(managerQuestion);	    
+      break;
+    }
+  } else {
+    questions = null;
+  }
+
+  if (questions) {
+    let person = await inquirer.prompt(questions)
+      .then((info) => {
+	if (addMember) {
 	  switch(role) {
 	  case "Intern":
-	    interns.push(Intern(personelInfo.name,
-				personelInfo.id,
-				personelInfo.email,
-				personelInfo.school));
+	    interns.push(new intern(info.name,
+				info.id,
+				info.email,
+				info.school));
 	    break;
 	  case "Engineer":
-	    engineers.push(Intern(personelInfo.name,
-				  personelInfo.id,
-				  personelInfo.email,
-				  personelInfo.github));
+	    engineers.push(new engineer(info.name,
+				  info.id,
+				  info.email,
+				  info.github));
 	    break;
 	  case "Manager":
-	    managers.push(Intern(personelInfo.name,
-				 personelInfo.id,
-				 personelInfo.email,
-				 personelInfo.officeNumber));
+	    managers.push(new manager(info.name,
+				 info.id,
+				 info.email,
+				 info.officeNumber));
 	    
 	    break;
 	  }
-	  gatherTheTeam();
-	});
-    });
-
-  html += managers.forEach(getCard)
-    + engineers.forEach(getCard)
-    + interns.forEach(getCard)
+	  //	  gatherTheTeam();
+	}
+      });
+  }
+    
+    html += managers.forEach(manager.prototype.getCard)
+    + engineers.forEach(engineer.prototype.getCard)
+    + interns.forEach(intern.prototype.getCard)
     + footer;
   
   return html;
 }
 
 
-function writeHTML(HTML) {
-  fs.writeFile("../dist/index.html", HTML, (err) =>
-    err ? console.log(err) : conseol.log("HTML file written!")
-  );
-  return 0;
-}
+gatherTheTeam();
 
-  
-writeHTML(gatherTheTeam());
+//function writeHTML(HTML) {
+//  fs.writeFile("../dist/index.html", HTML, (err) =>
+//    err ? console.log(err) : conseol.log("HTML file written!")
+//  );
+//  return 0;
+//}
+//
+//  
+//writeHTML(gatherTheTeam());
+//
