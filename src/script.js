@@ -18,71 +18,15 @@ const { bootstrap,
 	bodyTop,
 	footer } = require("../lib/htmls");
 
-let html = header +  bodyTop;
-
-// Variables 
+// Variables
 let interns = [];
 let engineers = [];
 let managers = [];
-//let questions = [];
-//let roles = [];
 
-function addAnotherMember() {
-  console.log("\nThere");
-  inquirer.prompt(mainQuestion)
-    .then((response) => {
-      if(response.addMember) {
-	switch (response.role){
-	case "Intern":
-	  questions = employeeQuestions.concat(internQuestion);
-	  break;
-	case "Engineer":
-	  questions = employeeQuestions.concat(engineerQuestion);	    
-	  break;
-	case "Manager":
-	  questions = employeeQuestions.concat(managerQuestion);	    
-	  break;
-	}
-      } else {
-	questions = null;
-      }
-      return response;
-    })
-    .catch((err) => {
-  console.error(err.stack)
-    });
-}
-
-//  return response;
-//}
-
-function addTheMember(role, personelInfo) {
-    switch(role) {
-    case "Intern":
-      interns.push(Intern(personelInfo.name,
-			  personelInfo.id,
-			  personelInfo.email,
-			  personelInfo.school));
-      break;
-    case "Engineer":
-      engineers.push(Intern(personelInfo.name,
-			    personelInfo.id,
-			    personelInfo.email,
-				personelInfo.github));
-      break;
-    case "Manager":
-      managers.push(Intern(personelInfo.name,
-			   personelInfo.id,
-			   personelInfo.email,
-			   personelInfo.officeNumber));
-      
-      break;
-    }
-  return 0;
-}
+//setting up html top section
+let html = header +  bodyTop;
 
 async function gatherTheTeam() {
-//  let role = "";
   while (true) {
     response = await inquirer.prompt(addQuestion);   
     if (!response.addMember) break;
@@ -126,8 +70,7 @@ async function gatherTheTeam() {
 	  });
     }
   }
-  
-
+ 
   html += managers.map((manager) => manager.getCard()).join("")
     + engineers.map((engineer) => engineer.getCard()).join("")
     + interns.map((intern) => intern.getCard()).join("")
@@ -135,8 +78,6 @@ async function gatherTheTeam() {
   
     return html;
 }
-
-//gatherTheTeam();
 
 function writeHTML(HTML) {
   fs.writeFile("../dist/index.html", HTML, (err) =>
@@ -151,5 +92,6 @@ async function main () {
   return 0;
 
 }
+
 main();
 
