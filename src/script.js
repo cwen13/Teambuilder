@@ -121,7 +121,6 @@ async function gatherTheTeam() {
 					info.id,
 					info.email,
 					info.officeNumber));
-	      
 	      break;
 	    }
 	  });
