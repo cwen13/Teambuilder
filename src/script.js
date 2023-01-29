@@ -44,31 +44,30 @@ async function gatherTheTeam() {
       break;
     }
     
-    if (questions) {
-      let person = await inquirer.prompt(questions)
-	  .then((info) => {
-	    switch(response.role) {
-	    case "Intern":
-	      interns.push(new intern(info.name,
-				      info.id,
-				      info.email,
-				      info.school));
-	      break;
-	    case "Engineer":
-	      engineers.push(new engineer(info.name,
-					  info.id,
-					  info.email,
-					  info.github));
-	      break;
-	    case "Manager":
-	      managers.push(new manager(info.name,
+    //    let person =
+    await inquirer.prompt(questions)
+	.then((info) => {
+	  switch(response.role) {
+	  case "Intern":
+	    interns.push(new intern(info.name,
+				    info.id,
+				    info.email,
+				    info.school));
+	    break;
+	  case "Engineer":
+	    engineers.push(new engineer(info.name,
 					info.id,
 					info.email,
-					info.officeNumber));
-	      break;
-	    }
-	  });
-    }
+					info.github));
+	    break;
+	  case "Manager":
+	    managers.push(new manager(info.name,
+				      info.id,
+				      info.email,
+				      info.officeNumber));
+	    break;
+	  }
+	}); 
   }
  
   html += managers.map((manager) => manager.getCard()).join("")
