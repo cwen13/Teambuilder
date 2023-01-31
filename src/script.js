@@ -44,7 +44,6 @@ async function gatherTheTeam() {
       break;
     }
     
-    //    let person =
     await inquirer.prompt(questions)
 	.then((info) => {
 	  switch(response.role) {
